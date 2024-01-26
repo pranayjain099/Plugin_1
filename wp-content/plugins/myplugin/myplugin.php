@@ -12,4 +12,22 @@ if (!defined("ABSPATH")) {
     die();
 }
 
+
+// function of activation hook
+function my_plugin_activation()
+{
+
+}
+
+// Activation hook 
+register_activation_hook(__FILE__, 'my_plugin_activation');
+
+// function of deactivation hook
+function my_plugin_deactivation()
+{
+
+}
+register_deactivation_hook(__FILE__, 'my_plugin_deactivation');
+
+
 ?>
