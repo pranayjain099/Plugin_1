@@ -49,7 +49,11 @@ register_activation_hook(__FILE__, 'my_plugin_activation');
 // function of deactivation hook
 function my_plugin_deactivation()
 {
+    global $wpdb, $table_prefix;
+    $wp_emp = $table_prefix . 'emp';
 
+    $q = "TRUNCATE`$wp_emp`";
+    $wpdb->query($q);
 
 }
 register_deactivation_hook(__FILE__, 'my_plugin_deactivation');
