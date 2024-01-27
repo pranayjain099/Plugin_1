@@ -26,20 +26,15 @@ function my_plugin_activation()
     // now executing it.
     $wpdb->query($q);
 
-    // if you want to insert the data two way
-
-    // first way
-    // $q1="INSERT INTO `$wp_emp` ( `name`, `email`, `status`) VALUES ('Pranay Jain', 'pranayjain2001@gmail.com', 1);";
-
-    // second way
+    // insert the data 
     $data = array(
         'name' => 'Astha',
         'email' => 'pranayjain2001@gmail.com',
         'status' => 1
     );
 
-    // executing it
-    $wpdb->insert($wp_emp, $data);
+    // executing it 
+    $wpdb->insert($wp_emp, $data);  // here insert is inbuilt function which takes two parameter
 
 }
 
