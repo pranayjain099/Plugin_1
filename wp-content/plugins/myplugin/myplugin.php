@@ -64,7 +64,13 @@ function my_sc_fun($atts)
 
     $atts = shortcode_atts($default_atts, $atts);
 
-    return "Hello " . $atts['name'] . " your age is " . $atts['age'];
+    ob_start();
+    ?>
+    <h2> Incluing Content from Html Tag </h2>
+    <?php
+    $myHtmlContent = ob_get_clean();
+    include 'img_gallery.php';
+    return "Hello " . $atts['name'] . " your age is " . $atts['age'] . $myHtmlContent;
 
 
 }
