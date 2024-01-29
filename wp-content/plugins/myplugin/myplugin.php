@@ -53,6 +53,22 @@ function my_plugin_deactivation()
 }
 register_deactivation_hook(__FILE__, 'my_plugin_deactivation');
 
+// Shortcode
+function my_sc_fun($atts)
+{
+    // Converting all the key input by user in lower case and storing it in same array.
+
+    $atts = array_change_key_case($atts, CASE_LOWER);
+
+    $default_atts = array('name' => 'Chotu', 'age' => '90');
+
+    $atts = shortcode_atts($default_atts, $atts);
+
+    return "Hello " . $atts['name'] . " your age is " . $atts['age'];
+
+
+}
+add_shortcode('my-sc', 'my_sc_fun');
 
 
 ?>
