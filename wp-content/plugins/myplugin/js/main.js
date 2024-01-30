@@ -1,1 +1,1 @@
-console.log(is_login);
+console.log(is_login);  // output = 1 if logged in
