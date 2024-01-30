@@ -77,4 +77,24 @@ function my_sc_fun($atts)
 add_shortcode('my-sc', 'my_sc_fun');
 
 
+// Adding scripts and styles
+
+function my_scripts()
+{
+    $path_js = plugins_url('js/main.js', __FILE__);
+    $dep = array('jquery');
+    $ver_js = filemtime(plugin_dir_path(__FILE__) . 'js/main.js');
+
+    $is_login = is_user_logged_in() ? 1 : 0;   // if logged in then 1 else 0.
+
+    wp_add_inline_script('my_custom_js', 'var is_login = ' . $is_login . ';', 'before');
+
+    // Add this script only in home page.
+    if (is_page('home')) {
+        wp_enqueue_script('my_custom_js', $path_js, $dep, $ver_js, true);
+    }
+}
+add_action('wp_enqueue_scripts', 'my_scripts');
+
+
 ?>
