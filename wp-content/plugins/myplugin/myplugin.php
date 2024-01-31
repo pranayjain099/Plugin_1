@@ -82,7 +82,7 @@ add_shortcode('my-sc', 'my_sc_fun');
 function my_scripts()
 {
     $path_js = plugins_url('js/main.js', __FILE__);
-    $path_style = plugins_url('js/main.js', __FILE__);
+    $path_style = plugins_url('css/style.css', __FILE__);
 
     $dep = array('jquery');
 
@@ -91,13 +91,13 @@ function my_scripts()
 
     $is_login = is_user_logged_in() ? 1 : 0;   // if logged in then 1 else 0.
 
-    wp_enqueue_style('my_custom_css', $path_style, '', $ver_style);
+    wp_enqueue_style('my-custom-css', $path_style, '', $ver_style);
 
-    wp_add_inline_script('my_custom_js', 'var is_login = ' . $is_login . ';', 'before');
+    wp_add_inline_script('my-custom-js', 'var is_login = ' . $is_login . ';', 'before');
 
-    // Add this script only in home page.
+    // Add this script only if the slug is home page not title slug you can check slug by clicking on quick edits.
     if (is_page('home')) {
-        wp_enqueue_script('my_custom_js', $path_js, $dep, $ver_js, true);
+        wp_enqueue_script('my-custom-js', $path_js, $dep, $ver_js, true);
     }
 
 }
