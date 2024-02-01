@@ -152,6 +152,36 @@ function retrieve_fn()
     <?php
 
 }
-add_shortcode('retrieve', 'retrieve_fn')
+add_shortcode('retrieve', 'retrieve_fn');
 
-    ?>
+function my_posts()
+{
+    $args = array(
+        'post_type' => 'post'
+    );
+    $query = new WP_Query($args);
+
+    ob_start();
+
+    if ($query->have_posts()):
+        ?>
+        <ul>
+            <?php
+            while ($query->have_posts()) {
+                $query->the_post();  // this will retrieve one post at a time
+                echo '<li>' . get_the_title() . ' -> ' . get_the_content() . '</li>';
+            }
+            ?>
+        </ul>
+        <?php
+    endif;
+    $html = ob_get_clean();
+    return $html;
+}
+
+add_shortcode('my-posts', 'my_posts');
+
+
+
+
+?>
