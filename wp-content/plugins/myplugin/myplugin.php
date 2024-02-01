@@ -157,7 +157,14 @@ add_shortcode('retrieve', 'retrieve_fn');
 function my_posts()
 {
     $args = array(
-        'post_type' => 'post'
+        'post_type' => 'post',
+        'posts_per_page' => 3, // Number of posts you want to display
+        'offset' => 2, // Will skip/offset the first 2 posts and start retrieving posts from the third post onwards.
+        'orderby' => 'ID',  // jo post sabse pehle banai uski id 1 then order wise
+        'order' => 'ASC',
+        // 'tag' => 'Birthday'
+
+
     );
     $query = new WP_Query($args);
 
