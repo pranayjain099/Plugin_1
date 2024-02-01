@@ -104,4 +104,54 @@ function my_scripts()
 add_action('wp_enqueue_scripts', 'my_scripts');
 
 
-?>
+// Retrieve data
+
+function retrieve_fn()
+{
+    global $wpdb, $table_prefix;
+    $wp_emp = $table_prefix . 'emp';
+
+    $q = "SELECT * FROM `$wp_emp`";
+    $results = $wpdb->get_results($q);
+
+    ob_start();
+    ?>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Status</td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($results as $row):
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $row->ID; ?>
+                    </td>
+                    <td>
+                        <?php echo $row->name; ?>
+                    </td>
+                    <td>
+                        <?php echo $row->email; ?>
+                    </td>
+                    <td>
+                        <?php echo $row->status; ?>
+                    </td>
+                </tr>
+                <?php
+            endforeach;
+            ?>
+        </tbody>
+    </table>
+
+    <?php
+
+}
+add_shortcode('retrieve', 'retrieve_fn')
+
+    ?>
