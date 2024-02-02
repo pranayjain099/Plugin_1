@@ -162,7 +162,8 @@ function my_posts()
         'offset' => 2, // Will skip/offset the first 2 posts and start retrieving posts from the third post onwards.
         'orderby' => 'ID',  // jo post sabse pehle banai uski id 1 then order wise
         'order' => 'ASC',
-        // 'tag' => 'Birthday'
+        // 'tag' => 'Birthday',
+
 
 
     );
@@ -176,7 +177,7 @@ function my_posts()
             <?php
             while ($query->have_posts()) {
                 $query->the_post();  // this will retrieve one post at a time
-                echo '<li>' . get_the_title() . ' -> ' . get_the_content() . '</li>';
+                echo '<li><a href="' . get_the_permalink() . '">' . get_the_title() . '</a> -> ' . '</li>';
             }
             ?>
         </ul>
@@ -188,7 +189,32 @@ function my_posts()
 
 add_shortcode('my-posts', 'my_posts');
 
+function head_fun()
+{
+    // if the page is single post page.
+    if (is_single()) {
+        global $post;   // Contains all the data about our post
+        $views = get_post_meta($post->ID, 'views', true);
 
+        if ($views == '') {
+            add_post_meta($post->ID, 'views', 1);
+        } else {
+            $views++;
+            update_post_meta($post->ID, 'views', $views);
+        }
+        // echo $views;
+    }
+}
+
+add_action('wp_head', 'head_fun'); // whenever our header will be laoded this action willbe executed.
+
+
+function views_count()
+{
+    global $post;
+    return 'Total views : ' . get_post_meta($post->ID, 'views', true);
+}
+add_shortcode('views-count', 'views_count');    // added this shortcode in page 3
 
 
 ?>
