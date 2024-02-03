@@ -181,7 +181,7 @@ function my_posts()
             <?php
             while ($query->have_posts()) {
                 $query->the_post();  // this will retrieve one post at a time
-                echo '<li><a href="' . get_the_permalink() . '">' . get_the_title() . '</a> (' . get_post_meta(get_the_ID(), 'views', true) . ') -> ' . '</li>';
+                echo '<li><a href=' . get_the_permalink() . '>' . get_the_title() . '</a> (' . get_post_meta(get_the_ID(), 'views', true) . ') -> ' . '</li>';
             }
             ?>
         </ul>
@@ -220,5 +220,19 @@ function views_count()
 }
 add_shortcode('views-count', 'views_count');    // added this shortcode in page 3
 
+
+// Adding menus and submenus
+
+function my_plugin_page_func()
+{
+    echo "Pranay";
+}
+
+function my_plugin_menu()
+{
+    add_menu_page('My Plugin Page', 'My Plugin', 'manage_options', 'my-plugin-page', 'my_plugin_page_func', '', 6);
+}
+
+add_action('admin_menu', 'my_plugin_menu');
 
 ?>
