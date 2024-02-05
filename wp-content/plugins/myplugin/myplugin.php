@@ -150,6 +150,7 @@ function retrieve_fn()
     </table>
 
     <?php
+    $html = ob_get_clean();
 
 }
 add_shortcode('retrieve', 'retrieve_fn');
@@ -225,12 +226,20 @@ add_shortcode('views-count', 'views_count');    // added this shortcode in page 
 
 function my_plugin_page_func()
 {
-    echo "Pranay";
+    include 'admin/main_page.php';
+}
+function my_plugin_subpage_func()
+{
+    echo "Hi From Sub Page";
 }
 
 function my_plugin_menu()
 {
     add_menu_page('My Plugin Page', 'My Plugin', 'manage_options', 'my-plugin-page', 'my_plugin_page_func', '', 6);
+
+    add_submenu_page('my-plugin-page', 'Main Page', 'My Plugin Main Page', 'manage_options', 'my-plugin-page', 'my_plugin_page_func');
+
+    add_submenu_page('my-plugin-page', 'Sub Page', 'My Plugin Sub Page', 'manage_options', 'my-plugin-subpage', 'my_plugin_subpage_func');
 }
 
 add_action('admin_menu', 'my_plugin_menu');
