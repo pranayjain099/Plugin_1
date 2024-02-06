@@ -244,21 +244,45 @@ function my_plugin_menu()
 
 add_action('admin_menu', 'my_plugin_menu');
 
-function my_custom_post_type()
+function register_custom_post_type()
 {
     $labels = array(
         'name' => 'Cars',
         'singular_name' => 'Car'
 
     );
+
+    $supports = array('title', 'editor', 'thumbnail', 'comments', 'excerpts');
     $options = array(
         'labels' => $labels,
         'public' => true,
         'has_archive' => true,
         'rewrite' => array('slug' => 'cars'),
-        'show_in_rest' => true
+        'show_in_rest' => true,
+        'supports' => $supports,
+        'taxonomies' => array('car-type')
+
     );
     register_post_type('cars', $options);
 }
-add_action('init', 'my_custom_post_type');
+add_action('init', 'register_custom_post_type');
+
+function register_car_types()
+{
+    $labels = array(
+        'name' => 'Car Types',
+        'singular_name' => 'Car Type'
+
+    );
+
+    $options = array(
+        'labels' => $labels,
+        'hierarchical' => true,
+        'rewrite' => array('slug' => 'cars-type'),
+        'show_in_rest' => true
+    );
+    register_taxonomy('car-type', array('cars'), $options);
+}
+
+add_action('init', 'register_car_types');
 ?>
