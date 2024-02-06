@@ -244,4 +244,21 @@ function my_plugin_menu()
 
 add_action('admin_menu', 'my_plugin_menu');
 
+function my_custom_post_type()
+{
+    $labels = array(
+        'name' => 'Cars',
+        'singular_name' => 'Car'
+
+    );
+    $options = array(
+        'labels' => $labels,
+        'public' => true,
+        'has_archive' => true,
+        'rewrite' => array('slug' => 'cars'),
+        'show_in_rest' => true
+    );
+    register_post_type('cars', $options);
+}
+add_action('init', 'my_custom_post_type');
 ?>
